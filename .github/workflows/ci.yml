@@ -1,0 +1,76 @@
+name: Apex CI - React Native Verification
+
+on: 
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+# Enforce absolute compliance with 2025/2026 Mobile standards
+
+jobs:
+  analysis_and_build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # Use the directory where the main project files reside, assuming standard Expo/RN setup
+        working-directory: ./ 
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js (Apex Standard)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Latest LTS compatible with modern Expo/RN
+        cache: 'npm'
+
+    - name: Install Dependencies (uv equivalent for JS/TS)
+      run: npm ci
+
+    - name: Run Static Analysis (Biome Check)
+      # Biome enforces linting, formatting, and potential type checking aggressively.
+      run: npx @biomejs/biome check --no-errors-on-warnings . --files-from-list src/ 
+
+    - name: Run TypeScript Strict Type Check
+      # Explicitly check TypeScript configuration for strict mode enforcement
+      run: npx tsc --noEmit
+
+    - name: Run Unit Tests (Vitest)
+      # Testing core logic before deployment simulation
+      run: npx vitest run --coverage --reporter=junit --outputFile=test-results.xml
+
+    - name: Upload Coverage Reports
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./coverage/lcov.info
+        name: code-coverage-report
+
+    - name: Simulate Expo Build Check (Pre-flight)
+      # In a real environment, this would trigger eas build. Here, we verify config.
+      # Assuming 'eas.json' exists for configuration validation.
+      run: | 
+        echo "Simulating EAS configuration verification..."
+        if [ ! -f eas.json ]; then 
+          echo "::warning::eas.json not found. Skipping native build validation step." 
+        else 
+          echo "EAS configuration present. Ready for native pipeline execution on dedicated runners." 
+        fi
+
+    - name: Archive Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results
+        path: test-results.xml
+        retention-days: 7
+
+    - name: Success Notification
+      if: success()
+      run: echo "CI Build successful. All Apex standards met for ClimaCast."
+
+    - name: Failure Analysis
+      if: failure()
+      run: echo "CI/CD Halted. Review failures above. Standards compliance check failed."
