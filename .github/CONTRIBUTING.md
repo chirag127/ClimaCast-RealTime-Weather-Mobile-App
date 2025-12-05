@@ -1,62 +1,92 @@
-# Contribution Guidelines for ClimaCast-RealTime-Weather-Mobile-App
+# Contributing to ApexWeather-Mobile-CrossPlatform-WeatherApp
 
-Welcome to the Apex repository! We seek contributions that enhance performance, strictly enforce TypeScript, and refine meteorological data visualization. As an Apex project, contributions must meet **zero-defect, high-velocity, future-proof** standards.
-
-This project adheres to the principles outlined in **AGENTS.md**, specifically regarding the architectural patterns (SOLID, DRY) and the strict use of the **React Native / Expo / TypeScript (Strict)** toolchain.
+Thank you for considering contributing to ApexWeather-Mobile-CrossPlatform-WeatherApp! We aim to foster a collaborative environment where high-quality, professional code is paramount.
 
 ## 1. Code of Conduct
 
-This project adheres to the Contributor Covenant Code of Conduct. All contributors must adhere to its principles. Be respectful, constructive, and professional in all interactions.
+This project adheres to the Contributor Covenant Code of Conduct. Please read the full [CODE_OF_CONDUCT.md](https://github.com/chirag127/ApexWeather-Mobile-CrossPlatform-WeatherApp/blob/main/CODE_OF_CONDUCT.md) to understand the expected standards of behavior.
 
-## 2. Workflow: The Apex Loop
+## 2. How to Contribute
 
-We enforce a strict workflow to maintain architectural integrity:
+We welcome contributions in the form of bug reports, feature requests, documentation improvements, and code contributions. All contributions should align with the project's goal of being a high-velocity, future-proof, and zero-defect application.
 
-1.  **Triage:** Review existing issues or create a new one clearly defining the proposed change (Bug, Feature, Refactor).
-2.  **Branching:** Create a new feature branch off `main`: `git checkout -b feature/short-description-of-change`.
-3.  **Development:** Implement changes adhering strictly to TypeScript 6.x compiler flags and FSD (Feature-Sliced Design) principles where applicable.
-4.  **Verification:** Ensure all changes pass local linting/formatting checks and that relevant **Vitest** unit tests pass. New features **MUST** include comprehensive testing.
-5.  **Pull Request (PR):** Open a Pull Request against `main`. The PR **MUST** link back to the original issue.
-6.  **Review:** Expect rigorous review from maintainers focusing on performance profiling, strict typing adherence, and architectural conformity.
+### 2.1. Reporting Bugs
 
-## 3. Branching Strategy
+1.  **Search Existing Issues:** Before reporting a bug, please check if it has already been reported. Search the existing issues on GitHub.
+2.  **Create a New Issue:** If the bug is new, please create a new issue using the **Bug Report** template. Provide as much detail as possible, including:
+    *   A clear and concise title.
+    *   The environment where the bug occurred (e.g., iOS version, Android version, device model).
+    *   Steps to reproduce the bug.
+    *   Expected behavior vs. actual behavior.
+    *   Relevant screenshots, logs, or error messages.
 
-We use a simplified Git Flow based on stability:
+### 2.2. Suggesting Enhancements
 
-*   `main`: Production-ready, stable code. Protected branch.
-*   `develop`: Integration branch for features slated for the next release. (Maintainers only).
-*   `feature/*`: For new features or significant enhancements.
-*   `fix/*`: For critical bug fixes.
-*   `refactor/*`: For non-functional improvements (style, architecture, performance tuning).
+1.  **Search Existing Issues:** Check if a similar feature request already exists.
+2.  **Create a New Issue:** If not, create a new issue describing the proposed enhancement. Clearly explain the problem it solves and the benefits it provides.
 
-## 4. Technical Standards Enforcement
+### 2.3. Submitting Code Contributions
 
-Contributors must ensure their changes do not degrade the quality metrics tracked by our CI pipeline (`.github/workflows/ci.yml`).
+Follow these steps to submit your code:
 
-### TypeScript Strictness
+1.  **Fork the Repository:** Create a fork of the `ApexWeather-Mobile-CrossPlatform-WeatherApp` repository under your GitHub account.
+2.  **Clone Your Fork:** Clone your forked repository to your local development machine:
+    bash
+    git clone https://github.com/chirag127/ApexWeather-Mobile-CrossPlatform-WeatherApp.git
+    cd ApexWeather-Mobile-CrossPlatform-WeatherApp
+    
+3.  **Create a New Branch:** Create a feature branch for your changes. Use a descriptive name (e.g., `feat/add-new-weather-source` or `fix/correct-forecast-display`).
+    bash
+    git checkout -b your-branch-name
+    
+4.  **Install Dependencies:** Install project dependencies using Expo CLI.
+    bash
+    npx expo install
+    
+5.  **Make Your Changes:** Implement your feature or bug fix. Ensure your code adheres to the project's coding standards and the Apex Tech Stack guidelines (TypeScript, React Native, Expo, Tailwind CSS v4, Biome, Vitest, Playwright).
+6.  **Lint and Format:** Ensure your code is clean and well-formatted. Run the linter and formatter:
+    bash
+    npx @biomejs/biome format --write .
+    npx @biomejs/biome lint --apply .
+    
+7.  **Run Tests:** Ensure all tests pass.
+    bash
+    npx vitest run
+    # For end-to-end tests if applicable
+    # npx playwright test
+    
+8.  **Commit Your Changes:** Commit your changes with clear and concise commit messages.
+    bash
+    git add .
+    git commit -m "feat: Add description for the new weather service API"
+    
+9.  **Push to Your Fork:** Push your branch to your forked repository.
+    bash
+    git push origin your-branch-name
+    
+10. **Open a Pull Request:** Go to the original `ApexWeather-Mobile-CrossPlatform-WeatherApp` repository and open a new Pull Request (PR) from your branch. Ensure the PR template is filled out completely.
 
-*   **Mandatory:** All new files must be maximally strict. Compiler options in `tsconfig.json` must reflect the highest level of type safety.
-*   **No `any` Allowed:** The use of the `any` type is strictly prohibited unless explicitly documented and justified as a last resort for external interoperability (and still requires maintainer approval).
+### 2.4. Pull Request Guidelines
 
-### Testing & Coverage
+*   **Descriptive Title and Description:** Clearly state the purpose of the PR and what it addresses.
+*   **Link to Issue:** If the PR fixes or implements an issue, link to it in the description (e.g., `Closes #123`).
+*   **Code Reviews:** Be prepared to address feedback from code reviewers.
+*   **CI/CD:** All PRs will be automatically checked by our CI pipeline. Ensure all checks pass before merging.
 
-*   **Vitest:** All new logic, hooks, components, and utility functions must have corresponding unit tests.
-*   **Coverage Gate:** The CI pipeline enforces a minimum coverage threshold (Check `ci.yml` for the current required percentage). Contributions that lower coverage will be blocked.
+## 3. Development Standards & Principles
 
-### State Management
+*   **Technology Stack:** We use TypeScript, React Native, Expo, and Tailwind CSS v4. Stick to these technologies unless a compelling reason exists for deviation.
+*   **Architectural Patterns:** Adhere to modern architectural principles like Feature-Sliced Design (FSD), SOLID, DRY, and YAGNI where applicable.
+*   **Code Quality:** Write clean, readable, and maintainable code. Prioritize zero-defect development.
+*   **Testing:** All new features and bug fixes must include comprehensive tests (unit and/or integration) using Vitest. E2E tests with Playwright should be considered for critical user flows.
+*   **Performance:** Optimize for performance and efficient resource usage on mobile devices.
 
-*   Adhere to established patterns for state management (e.g., using Redux Toolkit, Zustand, or React Context appropriately). **DRY** principle heavily applies here; avoid redundant state stores.
+## 4. Repository Structure
 
-## 5. Reporting Issues and Features
+Refer to the `README.md` for the current project structure. Contributions should respect and enhance this structure.
 
-If you discover a bug or have an idea for a new feature, please use the provided GitHub Issue Templates (`.github/ISSUE_TEMPLATE/bug_report.md`).
+## 5. AI AGENT DIRECTIVES
 
-When reporting, please provide:
+This project is guided by the **APEX TECHNICAL AUTHORITY & ELITE ARCHITECT** AI. Contributions are expected to align with its directives and standards. Refer to the `AGENTS.md` file for detailed information on the AI's operational parameters, tech stack, and verification commands.
 
-1.  Steps to reproduce (for bugs).
-2.  Expected vs. Actual behavior.
-3.  Your current environment details (Device/OS/Expo SDK Version if known).
-
-## 6. Repository Ownership
-
-By contributing code, you agree that your submissions will be licensed under the **CC BY-NC 4.0 License**, as specified in the root `LICENSE` file. See the **SECURITY.md** file for details on responsible disclosure.
+By contributing, you agree to uphold these standards and principles.
