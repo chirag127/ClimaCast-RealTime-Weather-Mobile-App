@@ -17,7 +17,7 @@
     "axios": "^1.8.1",
     "eas-cli": "^15.0.13",
     "expo": "~52.0.37",
-    "expo-location": "~18.0.7",
+    "expo-location": "~18.1.6",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.82.1",
